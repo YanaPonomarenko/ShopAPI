@@ -1,3 +1,5 @@
+using ShopApp.Services;
+using ShopApp.Interfaces;
 
 namespace ShopApp
 {
@@ -10,6 +12,8 @@ namespace ShopApp
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddSingleton<IProductService, ProductService>();
+            builder.Services.AddSingleton<ICategoryService, CategoryService>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 

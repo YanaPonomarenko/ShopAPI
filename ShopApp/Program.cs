@@ -1,5 +1,6 @@
 using Shop.App.Middlewares;
 using ShopApp.Interfaces;
+using ShopApp.Middlewares;
 using ShopApp.Services;
 
 
@@ -31,15 +32,17 @@ public static IApplicationBuilder UseRequestTimer(this IApplicationBuilder build
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
+            //if (app.Environment.IsDevelopment())
+            //{
+                //app.MapOpenApi();
+            //}
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
+            app.UseMiddleware<UserCheckMiddleware>();
+            app.UseStaticFiles();
 
             app.MapControllers();
             app.UseRequestTimer();//

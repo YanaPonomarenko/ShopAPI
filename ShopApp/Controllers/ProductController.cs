@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopApp.Filters;
 using ShopApp.Interfaces;
 using ShopDomain.Models;
 
@@ -6,6 +7,7 @@ namespace ShopApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [LogActionFilter]
 
     public class ProductController(IProductService _productService) : ControllerBase
     {

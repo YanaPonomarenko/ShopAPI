@@ -1,8 +1,18 @@
-using ShopApp.Services;
+using Shop.App.Middlewares;
 using ShopApp.Interfaces;
+using ShopApp.Services;
 
-namespace ShopApp
+
+namespace ShopApp;
+
+public static class MiddlewareExtensions
 {
+public static IApplicationBuilder UseRequestTimer(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<RequestTimerMiddleware>();
+    }
+}
+
     public class Program
     {
         public static void Main(string[] args)
@@ -14,8 +24,9 @@ namespace ShopApp
             builder.Services.AddControllers();
             builder.Services.AddSingleton<IProductService, ProductService>();
             builder.Services.AddSingleton<ICategoryService, CategoryService>();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
+        builder.Services.AddSingleton<IUserService, UserService>();
+        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
@@ -31,8 +42,9 @@ namespace ShopApp
 
 
             app.MapControllers();
+            app.UseRequestTimer();//
 
             app.Run();
         }
     }
-}
+
